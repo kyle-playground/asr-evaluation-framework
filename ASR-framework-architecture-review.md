@@ -219,3 +219,13 @@
 已完成：总体架构、独立数据抽象、24 类机制的适配检查、8 类方法的一手证据、四轮反例审查、变更位置表、33 项未来验收规格，以及明确的不可支持/需要新 profile 的情况。
 
 没有完成且不在本次“只设计不写代码”范围：实现 adapters、下载数据/权重、跑分、性能验证、第三方 backend 选型的实机证据。设计可进入实现评审；不得描述为已运行成功的 framework。
+
+## 12. 接入伪代码后的补充审查
+
+根据后续请求，新增[ElevenLabs、MOSS、Whisper 接入伪代码](ASR-framework-adapter-pseudocode.md)，并核对官方接口。此轮仍未实现或实际调用模型。
+
+三个离线方法沿用 whole-case Interface；新增的是各自 adapter。MOSS 的 HTTP/本地 driver 与 parser 是其内部 Seam；实时采用已有 incremental profile。没有在核心加入模型名分支，也没有让数据 adapter 知道模型名字。
+
+此轮将三个细节补回总体契约：配置决定输出承诺；原始接收时刻与规范事件发布时刻分别记录；文字提交后到达的 alignment 关联已有 transcript revision。Whisper 惰性迭代、MOSS 后端响应格式差异、ElevenLabs 事件关联/有界收尾则留在对应 adapter 及验收样例中。
+
+判断：三种部署场景在当前设计下可表达且改动集中，暂不需要新增公共 Module。但实时 wire 的段关联/收尾、不同 MOSS backend 的具体响应以及失败时部分结果仍需实际 fixtures；伪代码将这些列为未验证依赖，没有将 helper 名字当作已存在能力。

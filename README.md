@@ -15,6 +15,7 @@
 3. [方法适配检查](ASR-framework-method-fit.md)：24 类方法/机制的纸面适配与拒绝规则。
 4. [架构审查](ASR-framework-architecture-review.md)：设计取舍、反例审查和 33 项后续验收规格。
 5. [方法证据](ASR-framework-method-evidence.md)：8 类方法的一手资料核查与未知项。
+6. [具体接入伪代码](ASR-framework-adapter-pseudocode.md)：ElevenLabs 文件/实时 API、MOSS 自部署、Whisper 本地，以及长录音和纠错组合。
 
 ## 综合调研
 

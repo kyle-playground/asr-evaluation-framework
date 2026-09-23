@@ -16,6 +16,7 @@
 - [方法适配与反例压力测试](ASR-framework-method-fit.md)：逐类套用设计，记录不能无损统一的部分。
 - [架构审查与实施验收](ASR-framework-architecture-review.md)：备选设计、迭代记录、修改范围、验收场景。
 - [本轮方法一手证据](ASR-framework-method-evidence.md)：核查最容易挑战抽象的方法事实。
+- [具体接入伪代码](ASR-framework-adapter-pseudocode.md)：ElevenLabs、MOSS、Whisper 的数据→运行→结果→评分路径及场景检查。
 
 本文按“评价什么→谁负责→交换什么→怎样运行→怎样比较”阅读即可。已有材料提供的基线包括 [评测框架调查](research-asr-evaluation-frameworks.md)、[数据与指标](research-data-evaluation.md)、[后处理设计](research-postprocessing-design.md)、[系统约束](research-systems.md)。
 
@@ -120,6 +121,8 @@ flowchart LR
 
 “支持词时间戳”是声明；每条输出是否真的覆盖所有词需要运行后验证。语言/时长/模式是能力前置条件。未知能力不能当作支持；不支持的必需项在预检拒绝，非法运行输出记为失败。
 
+输出承诺由已解析配置决定，例如 `outputs_for(resolved_config)`：同一 adapter 关闭 diarization 或词时间戳后，不能继续声称会提供这些必需字段。参数默认值也应解析并写入 MethodIdentity；服务端未公开或不可固定的默认行为单列 unknown。不要只注册一个与配置无关的永久 capability 集合。
+
 参数保留命名空间，如方法自身的解码配置、recipe 的 VAD 配置。核心只认识协议/运行参数和 adapter 的校验结果，不把 Whisper beam、CTC beam 和 API 提示都转成一个通用 `quality` 参数。声明支持热词也不能证明不同系统的 boost 数值等价。
 
 ### 5.2 两种调用生命周期
@@ -195,6 +198,8 @@ speaker ID 是有作用域的局部符号：`录音/会话 + 命名空间 + ID`�
 
 每个事件包含 attempt/session、单调序号、观察者单调时钟、原始 provider 事件引用、相关产物 ID。provider 自报时间另存，不覆盖客户端观察时间。
 
+具体实现还需区分 transport/native 收到原事件的 `observed_at` 与规范结果发布的 `published_at`，后者包含解析/队列等待。记录二者及其观察位置，按 ScoreSpec 选择；不能将网络接收时刻与 adapter 后的用户可见时刻混用。具体双向流伪代码见接入文档。
+
 最少输入事件为媒体块、上下文可用、输入结束、取消。最少输出事件为结果修订、提交声明、使用量、错误、attempt 终止。健康心跳等是运行实现细节，不强迫模型实现。
 
 **结果修订**指向指定 view/scope 的不可变 snapshot，并携带父 revision 和被替代/移除的单元。语义是该 scope 的新状态，不是把收到的文字追加。合并/拆分段落可以明确替代一组单元。存储实现可压缩为 delta，但回放结果必须与 snapshot 一致。
@@ -204,6 +209,8 @@ scope 标识由 adapter 维护：provider 有稳定段 ID 就映射；没有时�
 **提交声明**包含 scope、revision、提交的维度（文字/归属/对齐/显示形式）及承诺强度。provider 的词级 Stable、单段 IsPartial=false 与整个 attempt 完成是不同声明。[AWS 官方 partial 说明](https://docs.aws.amazon.com/transcribe/latest/dg/streaming-partial-results.html)给出了前两种不同语义。
 
 普通 partial 是暂定；provider 声称不可改的内容后来被更改，记录承诺违约；显式可修订发布允许后续会话级纠正。在线 view 和会后 offline view 分开，不用会后稿覆盖实时事件。仅提供最终文件输出的系统不具备“曾经的实时显示记录”。
+
+字段补充也有独立来源与时间：若文字先提交、词时间后到，后者生成关联该 transcript revision 的 Alignment，不追加第二份文字。关联必须依据已验证的 provider ID/顺序语义；重复短句不能单靠字符串相同合并。无法可靠关联时保存原事件并标记该字段缺失/歧义，而不是编造关联。
 
 ### 7.2 时钟与因果性
 
