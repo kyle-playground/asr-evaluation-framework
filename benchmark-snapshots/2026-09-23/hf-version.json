@@ -1,0 +1,79 @@
+{
+  "label": "Add meta/muse-voice-transcribe.",
+  "default_datasets": [
+    "AMI-Cleaned",
+    "Earnings22-Cleaned-AA-chunked",
+    "Gigaspeech-Cleaned",
+    "LS Clean",
+    "LS Other",
+    "SPGISpeech",
+    "Voice Arena Monsoon",
+    "Voxpopuli-AA-Cleaned",
+    "Private (scripted)",
+    "Private (conversational)"
+  ],
+  "english_short": {
+    "repo": "hf-audio/open-asr-leaderboard-results",
+    "file": "english_short_latest.csv",
+    "revision": "7e57dda97fe368a406fbfe5fee1de6f8266a5a04"
+  },
+  "french": {
+    "repo": "hf-audio/multilingual_evals",
+    "file": "multilingual_fr.csv",
+    "revision": "96138dc7e4e8b5a13e6cb52ade8cc83c780c4c32"
+  },
+  "german": {
+    "repo": "hf-audio/multilingual_evals",
+    "file": "multilingual_de.csv",
+    "revision": "96dbd94b1f5a00c8bd42a21ab717bf14734249db"
+  },
+  "spanish": {
+    "repo": "hf-audio/multilingual_evals",
+    "file": "multilingual_es.csv",
+    "revision": "635716c21a21ed42c485ff4e37a97d34ed4a3db6"
+  },
+  "italian": {
+    "repo": "hf-audio/multilingual_evals",
+    "file": "multilingual_it.csv",
+    "revision": "43947d9d9279f181f2a601088918606602d10d7f"
+  },
+  "portuguese": {
+    "repo": "hf-audio/multilingual_evals",
+    "file": "multilingual_pt.csv",
+    "revision": "b82833d19a950a236c15ea68ac0497f1b9e260ef"
+  },
+  "hindi": {
+    "repo": "hf-audio/multilingual_evals",
+    "file": "multilingual_hi.csv",
+    "revision": "b10a5e4c474b472dbc74bfc19a46f0cfd731e71b"
+  },
+  "dutch": {
+    "repo": "hf-audio/multilingual_evals",
+    "file": "multilingual_nl.csv",
+    "revision": "eda0d48758ee7d00e8a292c2b3b24bd829df2321"
+  },
+  "longform": {
+    "repo": "hf-audio/leaderboard_longform",
+    "file": "longform_latest.csv",
+    "revision": "13d1000f7ba7cd3ca0d3f3864b69e672980254a6"
+  },
+  "appen": {
+    "repo": "hf-audio/appen_shortform_results",
+    "file": "appen_short_latest.csv",
+    "revision": "ad9aebf06d97fd040f98b683992baf1ff7034657"
+  },
+  "dataocean": {
+    "repo": "hf-audio/dataocean_shortform_results",
+    "file": "dataocean_short_latest.csv",
+    "revision": "610714e7bdfde63a1a788e83156d2e74058cdf21"
+  },
+  "voicearena": {
+    "repo": "hf-audio/voicearena_shortform_results",
+    "file": "voicearena_short_latest.csv",
+    "revision": "8c9d0a26bffd25b95f37c889fb1f221f81c68de7"
+  },
+  "benchmark_fitting": {
+    "repo": "hf-audio/benchmark_fitting",
+    "revision": "5ccac7c307063723db20298e36bb244a57054b36"
+  }
+}

@@ -1,0 +1,544 @@
+[
+  [
+    [
+      "Model",
+      "Provider",
+      "Whisper Version",
+      "Word Error Rate%",
+      "Median Speed Factor",
+      "PriceUSD per 1,000 minutes",
+      "Further Details"
+    ],
+    [
+      "Qwen3.5 Omni Flash",
+      "Alibaba Cloud",
+      "",
+      "13.5%",
+      "73.9",
+      "0.00",
+      "Details"
+    ],
+    [
+      "Qwen3.5 Omni Plus",
+      "Alibaba Cloud",
+      "",
+      "3.5%",
+      "97.8",
+      "0.00",
+      "Details"
+    ],
+    [
+      "Fun-Realtime-ASR-preview",
+      "Alibaba Cloud",
+      "",
+      "1.7%",
+      "19.9",
+      "0.00",
+      "Details"
+    ],
+    [
+      "Nova 2 Pro",
+      "Amazon Bedrock",
+      "",
+      "4.9%",
+      "23.0",
+      "3.10",
+      "Details"
+    ],
+    [
+      "Amazon Transcribe",
+      "Amazon Bedrock",
+      "",
+      "4.1%",
+      "31.9",
+      "6.00",
+      "Details"
+    ],
+    [
+      "Universal-3 Pro",
+      "AssemblyAI",
+      "",
+      "3.1%",
+      "112.0",
+      "3.50",
+      "Details"
+    ],
+    [
+      "Universal, AssemblyAI",
+      "AssemblyAI",
+      "",
+      "3.8%",
+      "118.1",
+      "2.50",
+      "Details"
+    ],
+    [
+      "MAI-Transcribe-2",
+      "Microsoft AI",
+      "",
+      "2.0%",
+      "374.5",
+      "1.67",
+      "Details"
+    ],
+    [
+      "MAI-Transcribe-1.5",
+      "Microsoft AI",
+      "",
+      "2.4%",
+      "191.2",
+      "6.00",
+      "Details"
+    ],
+    [
+      "MAI-Transcribe-1",
+      "Microsoft AI",
+      "",
+      "2.6%",
+      "68.6",
+      "6.00",
+      "Details"
+    ],
+    [
+      "transcribe-03-2026",
+      "Cohere",
+      "",
+      "4.6%",
+      "113.4",
+      "0.00",
+      "Details"
+    ],
+    [
+      "Nova-3",
+      "Deepgram",
+      "",
+      "5.2%",
+      "570.5",
+      "4.30",
+      "Details"
+    ],
+    [
+      "Nova-3, Telnyx",
+      "Telnyx",
+      "",
+      "4.8%",
+      "413.1",
+      "7.40",
+      "Details"
+    ],
+    [
+      "Nova-2, Telnyx",
+      "Telnyx",
+      "",
+      "5.1%",
+      "416.0",
+      "7.40",
+      "Details"
+    ],
+    [
+      "Scribe v2",
+      "ElevenLabs",
+      "",
+      "2.2%",
+      "84.4",
+      "3.67",
+      "Details"
+    ],
+    [
+      "Solaria-1, Gladia",
+      "Gladia",
+      "",
+      "4.1%",
+      "80.1",
+      "10.17",
+      "Details"
+    ],
+    [
+      "Solaria-3, Gladia",
+      "Gladia",
+      "",
+      "3.2%",
+      "80.8",
+      "10.16",
+      "Details"
+    ],
+    [
+      "Chirp 3, Google",
+      "Google",
+      "",
+      "4.3%",
+      "30.2",
+      "16.00",
+      "Details"
+    ],
+    [
+      "Chirp",
+      "Google",
+      "",
+      "31.2%",
+      "14.0",
+      "16.00",
+      "Details"
+    ],
+    [
+      "Gemini 3.5 Transcribe",
+      "Google",
+      "",
+      "2.6%",
+      "90.4",
+      "5.00",
+      "Details"
+    ],
+    [
+      "Gemini 3.1 Pro Preview (High)",
+      "Google",
+      "",
+      "2.8%",
+      "7.0",
+      "18.15",
+      "Details"
+    ],
+    [
+      "Gemini 3.1 Pro Preview (Low)",
+      "Google",
+      "",
+      "3.6%",
+      "7.2",
+      "7.72",
+      "Details"
+    ],
+    [
+      "Gemini 3 Flash (High)",
+      "Google",
+      "",
+      "2.9%",
+      "20.9",
+      "13.70",
+      "Details"
+    ],
+    [
+      "Gemini 2.5 Flash Lite",
+      "Google",
+      "",
+      "5.2%",
+      "83.8",
+      "6.56",
+      "Details"
+    ],
+    [
+      "Gemini 2.5 Flash",
+      "Google",
+      "",
+      "5.1%",
+      "72.8",
+      "6.66",
+      "Details"
+    ],
+    [
+      "Gemini 2.5 Pro",
+      "Google",
+      "",
+      "2.9%",
+      "13.5",
+      "11.39",
+      "Details"
+    ],
+    [
+      "Gemini 3.1 Flash-Lite Preview (Minimal)",
+      "Google",
+      "",
+      "3.4%",
+      "80.0",
+      "5.83",
+      "Details"
+    ],
+    [
+      "Gradium Speech-to-Text",
+      "Gradium",
+      "",
+      "6.8%",
+      "2.3",
+      "13.00",
+      "Details"
+    ],
+    [
+      "Grok Voice Transcribe 2.0",
+      "SpaceXAI",
+      "",
+      "2.3%",
+      "160.2",
+      "1.67",
+      "Details"
+    ],
+    [
+      "Grok Voice Transcribe 1.0",
+      "SpaceXAI",
+      "",
+      "4.0%",
+      "274.6",
+      "1.67",
+      "Details"
+    ],
+    [
+      "Inworld STT 1",
+      "Inworld",
+      "",
+      "3.9%",
+      "164.6",
+      "2.50",
+      "Details"
+    ],
+    [
+      "Voxtral Mini Transcribe 2",
+      "Mistral",
+      "",
+      "3.6%",
+      "76.2",
+      "3.00",
+      "Details"
+    ],
+    [
+      "Voxtral Small",
+      "Mistral",
+      "",
+      "2.8%",
+      "65.5",
+      "4.00",
+      "Details"
+    ],
+    [
+      "Voxtral Mini",
+      "DeepInfra",
+      "",
+      "3.8%",
+      "50.5",
+      "1.00",
+      "Details"
+    ],
+    [
+      "Modulate STT Batch English VFast",
+      "Modulate",
+      "",
+      "4.2%",
+      "61.1",
+      "0.42",
+      "Details"
+    ],
+    [
+      "Canary Qwen 2.5B, NVIDIA",
+      "Replicate",
+      "",
+      "4.3%",
+      "5.8",
+      "0.74",
+      "Details"
+    ],
+    [
+      "Parakeet TDT 0.6B V2, NVIDIA",
+      "NVIDIA",
+      "",
+      "6.4%",
+      "99.2",
+      "0.00",
+      "Details"
+    ],
+    [
+      "Parakeet RNNT 1.1B",
+      "Replicate",
+      "",
+      "5.4%",
+      "6.3",
+      "1.91",
+      "Details"
+    ],
+    [
+      "GPT Transcribe, OpenAI",
+      "OpenAI",
+      "",
+      "3.3%",
+      "41.3",
+      "4.50",
+      "Details"
+    ],
+    [
+      "GPT-4o Transcribe",
+      "OpenAI",
+      "",
+      "4.0%",
+      "35.6",
+      "6.00",
+      "Details"
+    ],
+    [
+      "GPT-4o Mini Transcribe",
+      "OpenAI",
+      "",
+      "4.5%",
+      "43.6",
+      "3.00",
+      "Details"
+    ],
+    [
+      "Smallest AI Pulse Pro",
+      "Smallest.ai",
+      "",
+      "2.4%",
+      "281.3",
+      "4.00",
+      "Details"
+    ],
+    [
+      "Resonant-1",
+      "Reson8",
+      "",
+      "3.4%",
+      "330.7",
+      "3.60",
+      "Details"
+    ],
+    [
+      "Rev AI",
+      "Rev AI",
+      "",
+      "5.9%",
+      "12.5",
+      "3.33",
+      "Details"
+    ],
+    [
+      "Smallest AI Pulse",
+      "Smallest.ai",
+      "",
+      "4.4%",
+      "288.5",
+      "5.00",
+      "Details"
+    ],
+    [
+      "Soniox v5 Async",
+      "Soniox",
+      "",
+      "3.8%",
+      "37.2",
+      "1.66",
+      "Details"
+    ],
+    [
+      "Soniox V4",
+      "Soniox",
+      "",
+      "3.9%",
+      "41.3",
+      "1.66",
+      "Details"
+    ],
+    [
+      "Speechmatics Melia",
+      "Speechmatics",
+      "",
+      "4.9%",
+      "173.0",
+      "4.00",
+      "Details"
+    ],
+    [
+      "Speechmatics Standard",
+      "Speechmatics",
+      "",
+      "5.1%",
+      "97.3",
+      "7.50",
+      "Details"
+    ],
+    [
+      "Speechmatics Enhanced",
+      "Speechmatics",
+      "",
+      "4.0%",
+      "57.8",
+      "12.50",
+      "Details"
+    ],
+    [
+      "StepAudio 2.5 ASR, StepFun",
+      "StepFun",
+      "",
+      "4.7%",
+      "88.2",
+      "0.37",
+      "Details"
+    ],
+    [
+      "StepAudio 3 ASR, StepFun",
+      "StepFun",
+      "",
+      "1.7%",
+      "83.7",
+      "6.67",
+      "Details"
+    ],
+    [
+      "Whisper Large v3 Turbo",
+      "Groq",
+      "v3 Turbo",
+      "4.6%",
+      "115.2",
+      "0.67",
+      "Details"
+    ],
+    [
+      "Whisper Large v3 Turbo, Telnyx",
+      "Telnyx",
+      "",
+      "5.5%",
+      "38.3",
+      "15.00",
+      "Details"
+    ],
+    [
+      "Wizper Large v3",
+      "fal.ai",
+      "large-v3",
+      "4.7%",
+      "235.5",
+      "0.50",
+      "Details"
+    ],
+    [
+      "Incredibly Fast Whisper",
+      "Replicate",
+      "large-v3",
+      "5.7%",
+      "55.5",
+      "1.49",
+      "Details"
+    ],
+    [
+      "Whisper Large v3",
+      "Replicate",
+      "large-v3",
+      "10.1%",
+      "2.6",
+      "4.23",
+      "Details"
+    ],
+    [
+      "Whisper Large v3",
+      "fal.ai",
+      "large-v3",
+      "4.1%",
+      "102.7",
+      "1.15",
+      "Details"
+    ],
+    [
+      "Whisper Large v2",
+      "OpenAI",
+      "large-v2",
+      "4.1%",
+      "28.7",
+      "6.00",
+      "Details"
+    ]
+  ]
+]

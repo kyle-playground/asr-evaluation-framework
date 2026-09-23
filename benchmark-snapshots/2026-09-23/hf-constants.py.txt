@@ -1,0 +1,385 @@
+from pathlib import Path
+
+# Directory where request by models are stored
+DIR_OUTPUT_REQUESTS = Path("requested_models")
+EVAL_REQUESTS_PATH = Path("eval_requests")
+
+##########################
+# Text definitions       #
+##########################
+
+banner_url = "https://huggingface.co/datasets/reach-vb/random-images/resolve/main/asr_leaderboard.png"
+BANNER = f'<div style="display: flex; justify-content: space-around;"><img src="{banner_url}" alt="Banner" style="width: 40vw; min-width: 300px; max-width: 600px;"> </div>'
+
+TITLE = "<html> <head> <style> h1 {text-align: center;} </style> </head> <body> <h1> 🤗 Open Automatic Speech Recognition Leaderboard </b> </body> </html>"
+
+TTS_LEADERBOARD_URL = "https://huggingface.co/spaces/hf-audio/open_tts_leaderboard"
+TTS_PROMO_BANNER = (
+    f'<div class="promo-banner">🗣️ New! Check out the'
+    f'<a href="{TTS_LEADERBOARD_URL}" target="_blank" '
+    f'style="color: var(--link-text-color); font-weight: 600; text-decoration: underline;text-decoration-style: dotted;">'
+    f'Open TTS Leaderboard</a>'
+    f'for text-to-speech model evaluation.</div>'
+)
+
+INTRODUCTION_TEXT = "📐 The 🤗 Open ASR Leaderboard evaluates open-source and proprietary speech recognition models on English and multiple languages. \
+    \nWe report the Average <a href='https://huggingface.co/learn/audio-course/chapter5/evaluation#word-error-rate' target='_blank'>WER</a> (⬇️ lower the better) and <a href='https://huggingface.co/learn/audio-course/chapter5/evaluation#inverse-real-time-factor-rtfx' target='_blank'>RTFx</a> (⬆️ higher the better). Models are ranked based on their Average WER, from lowest to highest. Check the '🤗 About' tab to understand how models are evaluated. \
+    \nTo promote transparancy and reproducibility, evaluation scripts can be found on <a href='https://github.com/huggingface/open_asr_leaderboard' target='_blank'>GitHub</a>. Further trends and observations can be found in our <a href='https://arxiv.org/abs/2510.06961' target='_blank'>paper</a>. \
+    \n\nIf you want results for a model (or dataset) not listed here, you can directly open a pull request (PR) on GitHub!"
+
+CITATION_TEXT = """@misc{srivastav2025openasrleaderboardreproducible,
+      title={Open ASR Leaderboard: Towards Reproducible and Transparent Multilingual and Long-Form Speech Recognition Evaluation}, 
+      author={Vaibhav Srivastav and Steven Zheng and Eric Bezzam and Eustache Le Bihan and Nithin Koluguri and Piotr Żelasko and Somshubra Majumdar and Adel Moumen and Sanchit Gandhi},
+      year={2026},
+      eprint={2510.06961},
+      archivePrefix={arXiv},
+      primaryClass={cs.CL},
+      url={https://arxiv.org/abs/2510.06961}, 
+}
+"""
+
+METRICS_TAB_TEXT = """
+# About
+
+Here you will find details about the datasets and metrics used in our leaderboard.
+
+## Benchmark datasets
+
+For each task, we take a macro-average over all datasets.
+
+The "Leaderboard" tab, namely short-form English, uses the test split of the following datasets.
+For convenience, they are aggregated into a single dataset [here](https://huggingface.co/datasets/hf-audio/open-asr-leaderboard) *except* for `Earnings22-Cleaned-AA-chunked`.
+This split is loaded from the [original dataset card](https://huggingface.co/datasets/ArtificialAnalysis/Earnings22-Cleaned-AA-chunked)
+as the audio chunks do not contain reference transcripts and requires a different scoring method: each chunk is transcribed and concatenated to form the full audio transcript
+which is then compared with the full transcripts from [ArtificialAnalysis/Earnings22-Cleaned-AA](https://huggingface.co/datasets/ArtificialAnalysis/Earnings22-Cleaned-AA).
+
+| Dataset                                                                                 | Duration [h] | License         | Source                      | Style                | Transcriptions                  |
+| --------------------------------------------------------------------------------------- | ------------ | --------------- | --------------------------- | -------------------- | ------------------------------- |
+| [AMI Meeting Corpus](https://huggingface.co/datasets/edinburghcstr/ami)                 | 9            | CC-BY-4.0       | Meetings                    | Spontaneous          | Punctuated, cased, disfluencies |
+| [Earnings22](https://huggingface.co/datasets/distil-whisper/earnings22)                 | 119          | CC-BY-SA-4.0    | Earnings calls              | Oratory, spontaneous | Punctuated, cased, disfluencies |
+| [Earnings22-Cleaned-AA-chunked](https://huggingface.co/datasets/ArtificialAnalysis/Earnings22-Cleaned-AA-chunked) | 1.9 | Apache-2.0 | Earnings calls | Oratory, spontaneous | Punctuated, cased, disfluencies |
+| [GigaSpeech](https://huggingface.co/datasets/speechcolab/gigaspeech)                    | 40           | Apache-2.0      | Audiobook, podcast, YouTube | Read, spontaneous    | Punctuated, disfluencies        |
+| [LibriSpeech (clean)](https://huggingface.co/datasets/openslr/librispeech_asr)          | 5.4          | CC-BY-4.0       | Audiobooks                  | Read                 | Normalized                      |
+| [LibriSpeech (other)](https://huggingface.co/datasets/openslr/librispeech_asr)          | 5.1          | CC-BY-4.0       | Audiobooks (noisier)        | Read                 | Normalized                      |
+| [SPGISpeech](https://huggingface.co/datasets/kensho/spgispeech)                         | 100          | User Agreement  | Financial meetings          | Oratory, spontaneous | Punctuated, cased               |
+| [Voice Arena Monsoon (en-IN)](https://huggingface.co/datasets/VoiceArena/Monsoon_en_IN_test) | 5.62 | CC BY 4.0      | Voice Arena                 | Conversational, spontaneous, Indian accent | Normalized, disfluencies |
+| [VoxPopuli](https://huggingface.co/datasets/facebook/voxpopuli)                         | 5            | CC0             | European Parliament         | Oratory              | Punctuated                      |
+| [Voxpopuli-AA-Cleaned](https://huggingface.co/datasets/ArtificialAnalysis/VoxPopuli-Cleaned-AA) | 2 | Apache-2.0 | European Parliament | Oratory | Punctuated, cased, disfluencies   |
+
+ℹ️ The Voice Arena sets (the public `Voice Arena Monsoon` split and the private en-IN set) are sourced from dual-channel recordings of two-person conversations, segmented per channel to yield single-speaker chunks. The content is conversational/spontaneous throughout; the only read-style speech occurs when a speaker reads the assigned discussion topic, and all such read audio has been removed — the released sets contain conversation audio only.
+
+The "Multilingual" tab uses the test split of the following datasets.
+For convenience, they are aggregated into a single dataset [here](https://huggingface.co/datasets/nithinraok/asr-leaderboard-datasets).
+
+| Dataset                                                          | Languages          | Duration [h] | Male (%) / Female (%) | License      | Source      | Style | Transcriptions    |
+| ---------------------------------------------------------------- | ------------------ | ------------ | --------------------- | ------------ | ----------- | ----- | ----------------- |
+| [CoVoST-2](https://huggingface.co/datasets/facebook/covost2)     | de, fr, it, es     | 5.3–23       | NA                    | CC-BY-NC-4.0 | Open domain | Read  | Punctuated, cased |
+| [FLEURS](https://huggingface.co/datasets/google/fleurs)          | de, fr, it, es, pt | 2.0–3.5      | NA                    | CC-BY-4.0    | Wikipedia   | Read  | Punctuated, cased |
+| [MLS](https://www.openslr.org/94)                                | fr, it, es, pt     | 0.8–6.3      | NA                    | CC-BY-4.0    | Audiobooks  | Read  | Normalized        |
+| [Voice Arena Monsoon (hi-IN)](https://huggingface.co/datasets/VoiceArena/Monsoon_hi_test) | hi | 1.32 | 60 / 40 | CC BY 4.0 | Voice Arena | Conversational, spontaneous | Lattice (accepted orthographic variants) |
+| Voice Arena Private (hi-IN)                                      | hi                 | 4.47         | 60 / 40               | CC BY 4.0    | Voice Arena | Conversational, spontaneous | Lattice (accepted orthographic variants) |
+
+ℹ️ Hindi is scored differently from the other multilingual languages. Its references are **lattices** — a list of accepted orthographic variants per reference slot rather than a single flattened string — and are scored with the [voi-oiwer](https://pypi.org/project/voi-oiwer/) package. Both the public `Voice Arena Monsoon` split and the private Voice Arena Hindi set are sourced from dual-channel two-person conversations, segmented per channel to yield single-speaker chunks (conversational/spontaneous throughout; see the note in the Leaderboard datasets above). The Hindi language average is taken over both sets.
+
+
+The "Longform" tab uses the test split of the following datasets, and the entire CORAAL dataset.
+For convenience, they are aggregated [here](https://huggingface.co/datasets/hf-audio/asr-leaderboard-longform).
+CORAAL is [separate](https://huggingface.co/datasets/bezzam/coraal) as each split has a different metadata structure.
+
+| Dataset                                                                      | Duration [h] | License         | Source                     | Style                | Transcriptions                  |
+| ---------------------------------------------------------------------------- | ------------ | --------------- | -------------------------- | -------------------- | ------------------------------- |
+| [CORAAL](https://oraal.github.io/coraal)                                     | 159          | CC-BY-NC-4.0    | Sociolinguistic interviews | Spontaneous          | Punctuated, cased, disfluencies |
+| [Earnings21](https://huggingface.co/datasets/Revai/earnings21)               | 39           | CC-BY-SA-4.0    | Earnings calls             | Oratory, spontaneous | Punctuated, cased, disfluencies |
+| [Earnings22](https://huggingface.co/datasets/distil-whisper/earnings22)      | 119          | CC-BY-SA-4.0    | Earnings calls             | Oratory, spontaneous | Punctuated, cased, disfluencies |
+
+
+The "Private data" tab uses the following datasets, which are not publicly available.
+
+| Dataset | Accent | Duration [h] | Male (%) / Female (%) | Style | Transcription |
+| --- | --- | --- | --- | --- | --- |
+| Appen Scripted AU | Australian | 1.42 | 49 / 51 | Read | Punctuated, cased. |
+| Appen Scripted CA | Canadian | 1.53 | 52 / 48 | Read | Punctuated, cased. |
+| Appen Scripted IN | Indian | 1.02 | 49 / 51 | Read | Punctuated, cased. |
+| Appen Scripted US | American | 1.45 | 49 / 51 | Read | Punctuated, cased. |
+| Appen Conversational IN | Indian | 1.37 | 51 / 49 | Conversational, spontaneous | Punctuated, disfluencies. | 
+| Appen Conversational US003 | American | 1.64 | 49 / 51 | Conversational, spontaneous | Punctuated, cased, disfluencies. |
+| Appen Conversational US004 | American | 1.65 | 49 / 51 | Conversational, spontaneous | Punctuated, disfluencies. |
+| DataoceanAI Scripted US | American | 2.43 | 54 / 46 | Read | Punctuated, cased (proper nouns), disfluencies. |
+| DataoceanAI Scripted GB | British | 2.43 | 47 / 53 | Read | Punctuated, disfluencies. |
+| DataoceanAI Conversational US | American | 8.82 | NA | Conversational, spontaneous | Punctuated, disfluencies. |
+| DataoceanAI Conversational GB | British | 5.96 | NA | Conversational, spontaneous | Punctuated, disfluencies. |
+| Voice Arena en-IN | Indian | 5.57 | 48 / 52 | Conversational, spontaneous | Normalized, disfluencies. |
+
+Below are sample audio showing the variety of content (scripted, conversational, acronyms, disfluencies, proper nouns).
+
+<audio controls src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open_asr_leaderboard/acronym.wav"></audio>
+
+<audio controls src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open_asr_leaderboard/proper_noun.wav"></audio>
+
+<audio controls src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open_asr_leaderboard/conv.wav"></audio>
+
+<audio controls src="https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/blog/open_asr_leaderboard/discluency.wav"></audio>
+
+
+## Metrics
+
+Models are evaluated jointly using the Word Error Rate (WER) and Inverse Real Time Factor (RTFx) metrics. The WER metric
+is used to assess the accuracy of a system, and the RTFx the inference speed. Models are ranked in the leaderboard based 
+on their WER, lowest to highest.
+
+Crucially, the WER and RTFx values are computed for the same inference run using a single script. The implication of this is two-fold:
+1. The WER and RTFx values are coupled: for a given WER, one can expect to achieve the corresponding RTFx. This allows the proposer to trade-off lower WER for higher RTFx should they wish.
+2. The WER and RTFx values are averaged over all audios in the benchmark (in the order of thousands of audios).
+
+For details on reproducing the benchmark numbers, refer to the [Open ASR GitHub repository](https://github.com/huggingface/open_asr_leaderboard#evaluate-a-model).
+
+### Word Error Rate (WER)
+
+Word Error Rate is used to measure the **accuracy** of automatic speech recognition systems. It calculates the percentage 
+of words in the system's output that differ from the reference (correct) transcript. **A lower WER value indicates higher accuracy**.
+
+Take the following example:
+
+| Reference:  | the | cat | sat     | on  | the | mat |
+|-------------|-----|-----|---------|-----|-----|-----|
+| Prediction: | the | cat | **sit** | on  | the |     |  |
+| Label:      | ✅   | ✅   | S       | ✅   | ✅   | D   |
+
+Here, we have:
+* 1 substitution ("sit" instead of "sat")
+* 0 insertions
+* 1 deletion ("mat" is missing)
+
+This gives 2 errors in total. To get our word error rate, we divide the total number of errors (substitutions + insertions + deletions) by the total number of words in our
+reference (N), which for this example is 6:
+
+```
+WER = (S + I + D) / N = (1 + 0 + 1) / 6 = 0.333
+```
+
+Giving a WER of 0.33, or 33%.
+
+Not all models produce transcripts with punctuation, casing, or disfluencies; in particular, some models explicitly remove the latter.
+To account for discrepancies between model outputs and dataset transcriptions, we normalize all text prior to computing WER.
+This normalization removes punctuation and casing, and applies a pipeline closely following that of Whisper. See [here](https://github.com/huggingface/open_asr_leaderboard/tree/main/normalizer) for the relevant code.
+The pipeline includes number normalization (e.g. ``zero'' to ``0''), spelling standardization, and the removal of filler words.
+
+Compound words are also addressed, such that e.g. "white paper" and "whitepaper" are treated as equivalent. This is done with [kaldialign](https://github.com/pzelasko/kaldialign).
+
+
+### Inverse Real Time Factor (RTFx)
+
+Inverse Real Time Factor is a measure of  the **latency** of automatic speech recognition systems, i.e. how long it takes an 
+model to process a given amount of speech. It is defined as:
+```
+RTFx = (number of seconds of audio inferred) / (compute time in seconds)
+``` 
+
+Therefore, and RTFx of 1 means a system processes speech as fast as it's spoken, while an RTFx of 2 means it takes half the time. 
+Thus, **a higher RTFx value indicates lower latency**.
+
+## How to reproduce our results
+
+The Open ASR Leaderboard is a continuous and community effort to benchmark speech recognition models. 
+Along with the leaderboard we've open-sourced the codebase used for running these evaluations.
+For more details head over to our repo at: https://github.com/huggingface/open_asr_leaderboard 
+
+We'd love to know which other models (or datasets) you'd like us to benchmark next. Contributions are more than welcome! ♥️
+
+"""
+
+# Multilingual language display metadata (name + flag). The set of datasets
+# per language is discovered from the data itself, not declared here.
+LANGUAGES = {
+    "de": {"name": "German", "flag": "🇩🇪"},
+    "fr": {"name": "French", "flag": "🇫🇷"},
+    "it": {"name": "Italian", "flag": "🇮🇹"},
+    "es": {"name": "Spanish", "flag": "🇪🇸"},
+    "pt": {"name": "Portuguese", "flag": "🇵🇹"},
+    "hi": {"name": "Hindi", "flag": "🇮🇳"},
+    "nl": {"name": "Dutch", "flag": "🇳🇱"},
+}
+
+MULTILINGUAL_TAB_TEXT = """
+# Multilingual ASR Evaluation
+
+"""
+
+LONGFORM_TAB_TEXT = """
+# Long-form ASR Evaluation
+
+"""
+
+PRIVATE_DATA_TAB_TEXT = """
+# Private Data ASR Evaluation
+
+This tab evaluates models on private (non-public) speech datasets from multiple data providers.
+The purpose of this benchmark is to address risks of overfitting to public datasets, and to incentivize the development of models that generalize well to real-world data. For more information, check out our [blog post](https://huggingface.co/blog/open-asr-leaderboard-private-data).
+
+Scores are aggregated so that no individual data provider or split is exposed.
+
+- **Avg Scripted**: Macro-average across all scripted-speech datasets.
+- **Avg Conversational**: Macro-average across all conversational-speech datasets.
+- **Avg US**: Macro-average across all US accent datasets.
+- **Avg Non-US**: Macro-average across all non-US accent datasets.
+
+For details on the benchmark datasets used in this tab, see the **🤗 About** tab.
+
+### Acknowledgements
+
+We would like to thank [Appen Inc.](https://huggingface.co/AppenAIResearch), [DataoceanAI](https://huggingface.co/DataoceanAI1), and [Voice Arena](https://huggingface.co/VoiceArena) for generously providing private evaluation data for this benchmark 🙏
+
+"""
+
+LEADERBOARD_CSS = """
+#leaderboard-table th,
+#leaderboard-table td {
+    min-width: 70px;
+}
+
+#leaderboard-table th .header-content {
+    white-space: nowrap;
+}
+
+#leaderboard-table td {
+    white-space: nowrap;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    max-width: none !important;
+}
+
+#leaderboard-table {
+    width: 100% !important;
+    table-layout: auto !important;
+}
+
+#multilingual-table th,
+#multilingual-table td {
+    min-width: 70px;
+}
+
+#multilingual-table th .header-content {
+    white-space: nowrap;
+}
+
+#multilingual-table td {
+    white-space: nowrap;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    max-width: none !important;
+}
+
+#multilingual-table {
+    width: 100% !important;
+    table-layout: auto !important;
+}
+
+#multilingual-table th:hover {
+    background-color: var(--table-row-focus);
+}
+
+#longform-table th,
+#longform-table td {
+    min-width: 70px;
+}
+
+#longform-table th .header-content {
+    white-space: nowrap;
+}
+
+#longform-table td {
+    white-space: nowrap;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    max-width: none !important;
+}
+
+#longform-table {
+    width: 100% !important;
+    table-layout: auto !important;
+}
+
+#longform-table th:hover {
+    background-color: var(--table-row-focus);
+}
+
+#private-data-table th,
+#private-data-table td {
+    min-width: 70px;
+}
+
+#private-data-table th .header-content {
+    white-space: nowrap;
+}
+
+#private-data-table td {
+    white-space: nowrap;
+    overflow: visible !important;
+    text-overflow: clip !important;
+    max-width: none !important;
+}
+
+#private-data-table {
+    width: 100% !important;
+    table-layout: auto !important;
+}
+
+#private-data-table th:hover {
+    background-color: var(--table-row-focus);
+}
+
+.language-detail-modal {
+    background: var(--background-fill-primary);
+    border: 1px solid var(--border-color-primary);
+    border-radius: 8px;
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.promo-banner {
+    background: var(--color-accent-soft);
+    border: 1px solid var(--border-color-accent);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0 1rem 0;
+    text-align: center;
+    font-size: 1.05em;
+}
+.promo-banner a {
+    color: var(--link-text-color);
+}
+
+/* Center the leftmost "Rank" column (header + cells) on every table. */
+#leaderboard-table th:first-child,
+#leaderboard-table td:first-child,
+#multilingual-table th:first-child,
+#multilingual-table td:first-child,
+#longform-table th:first-child,
+#longform-table td:first-child,
+#private-data-table th:first-child,
+#private-data-table td:first-child {
+    text-align: center;
+}
+#leaderboard-table th:first-child .header-content,
+#leaderboard-table th:first-child .header-button,
+#multilingual-table th:first-child .header-content,
+#multilingual-table th:first-child .header-button,
+#longform-table th:first-child .header-content,
+#longform-table th:first-child .header-button,
+#private-data-table th:first-child .header-content,
+#private-data-table th:first-child .header-button {
+    justify-content: center;
+    text-align: center;
+}
+
+/* Center the "Rank Δ" column (header + cells) — main leaderboard only. */
+#leaderboard-table th:nth-child(2),
+#leaderboard-table td:nth-child(2) {
+    text-align: center;
+}
+#leaderboard-table th:nth-child(2) .header-content,
+#leaderboard-table th:nth-child(2) .header-button {
+    justify-content: center;
+    text-align: center;
+}
+"""
